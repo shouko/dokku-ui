@@ -1,0 +1,25 @@
+{
+  "name": "dokku-ui",
+  "version": "0.0.1",
+  "description": "Web UI for the self-hosted PaaS Dokku",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shouko/dokku-ui.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shouko/dokku-ui/issues"
+  },
+  "homepage": "https://github.com/shouko/dokku-ui#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mysql": "^2.10.2",
+    "sequelize": "^3.23.3",
+    "serve-static": "^1.10.3"
+  }
+}
