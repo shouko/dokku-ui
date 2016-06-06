@@ -1,0 +1,25 @@
+{
+  "name": "dokku-ui",
+  "description": "Web UI for the self-hosted PaaS Dokku",
+  "main": "app.js",
+  "directory": "public/bower_components",
+  "authors": [
+    "shouko <imshouko@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/shouko/dokku-ui",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.5.10"
+  }
+}
