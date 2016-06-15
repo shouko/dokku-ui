@@ -10,6 +10,10 @@ app.get('/', function (req, res) {
   res.render('index', { title: config.title });
 });
 
+app.get('/createapp', function (req, res) {
+  res.render('createapp', { title: config.title });
+});
+
 app.get('/hello/:name', function (req, res) {
   res.send('Hello ' + req.params.name + '!');
 });
