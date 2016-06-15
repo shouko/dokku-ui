@@ -14,6 +14,10 @@ app.get('/createapp', function (req, res) {
   res.render('createapp', { title: config.title });
 });
 
+app.get('/creategroup', function (req, res) {
+    res.render('creategroup', { title: config.title });
+});
+
 app.get('/hello/:name', function (req, res) {
   res.send('Hello ' + req.params.name + '!');
 });
