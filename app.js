@@ -1,9 +1,12 @@
 var config = require('./config');
 var express = require('express');
 var serveStatic = require('serve-static');
+var bodyParser = require('body-parser')
+
 var app = express();
 
 app.use(serveStatic('public'));
+app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
