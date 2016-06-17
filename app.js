@@ -10,8 +10,16 @@ app.get('/', function (req, res) {
   res.render('index', { title: config.title });
 });
 
+app.get('/databases', function (req, res) {
+  res.render('databases', { title: config.title });
+});
+
 app.get('/createapp', function (req, res) {
   res.render('createapp', { title: config.title });
+});
+
+app.get('/createpipline', function (req, res) {
+  res.render('createpipline', { title: config.title });
 });
 
 app.get('/creategroup', function (req, res) {
