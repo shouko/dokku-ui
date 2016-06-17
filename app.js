@@ -37,6 +37,10 @@ app.get('/createdatabase', function(req, res){
 	res.render('createdatabase', {title: config.title});
 });
 
+app.get('/appinfo', function(req, res){
+	res.render('appinfo', {title: config.title});
+});
+
 app.get('/hello/:name', function (req, res) {
   res.send('Hello ' + req.params.name + '!');
 });
