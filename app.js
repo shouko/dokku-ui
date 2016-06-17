@@ -10,35 +10,45 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-  res.render('index', { title: config.title });
+  res.render('index', {
+      title: config.title
+  });
 });
 
 app.get('/apps', function (req, res) {
-  res.render('apps', { title: config.title });
+    res.render('apps', {
+      title: config.title + " - App"
+  });
 });
 
 app.get('/databases', function (req, res) {
-  res.render('databases', { title: config.title });
+  res.render('databases', {
+      title: config.title + " - Database"
+  });
 });
 
 app.get('/createapp', function (req, res) {
-  res.render('createapp', { title: config.title });
-});
-
-app.get('/createpipline', function (req, res) {
-  res.render('createpipline', { title: config.title });
+  res.render('createapp', {
+      title: config.title + " - Create New App"
+  });
 });
 
 app.get('/creategroup', function (req, res) {
-    res.render('creategroup', { title: config.title });
+    res.render('creategroup', {
+        title: config.title + " - Create New Group"
+    });
 });
 
 app.get('/createdatabase', function(req, res){
-	res.render('createdatabase', {title: config.title});
+	res.render('createdatabase', {
+        title: config.title + " - Create New Database"
+    });
 });
 
 app.get('/appinfo', function(req, res){
-	res.render('appinfo', {title: config.title});
+	res.render('appinfo', {
+        title: config.title + " - App Information"
+    });
 });
 
 app.get('/hello/:name', function (req, res) {
