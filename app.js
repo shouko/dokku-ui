@@ -37,8 +37,11 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
 });
 
 app.get('/app/info/:name', middleware.loggedIn, function (req, res){
-	res.render('app_info', {
-    title: config.title + " - App Information"
+  var names = ['Overview', 'Resource', 'Collaborator', 'Settings'];
+  res.render('app_info', {
+    title: config.title + " - App Information",
+    funcs: names,
+    func: req.query.func
   });
 });
 
@@ -77,6 +80,12 @@ app.get('/database', middleware.loggedIn, function (req, res) {
 app.get('/database/create', middleware.loggedIn, function (req, res){
 	res.render('database_create', {
     title: config.title + " - Create New Database"
+  });
+});
+
+app.get('/login', function (req, res) {
+  res.render('login', {
+    title: config.title + ' - Login'
   });
 });
 
