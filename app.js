@@ -26,12 +26,17 @@ app.get('/', function (req, res) {
 });
 
 app.get('/app/list', middleware.loggedIn, function (req, res) {
-  res.render('app_list', {
-    title: config.title + " - App"
-  });
+  models.User.findOne({
+    username: req.session.username
+  }).getApps().then(function(apps) {
+    res.render('app_list', {
+      title: config.title + " - App",
+      apps: apps
+    });
+  })
 });
 
-app.get('/app/info/:name', middleware.loggedIn, function(req, res){
+app.get('/app/info/:name', middleware.loggedIn, function (req, res){
 	res.render('app_info', {
     title: config.title + " - App Information"
   });
@@ -43,19 +48,39 @@ app.get('/app/create', middleware.loggedIn, function (req, res) {
   });
 });
 
+app.post('/app/create', middleware.loggedIn, function (req, res) {
+  if(!req.body.name) {
+    req.session.flash = 'Missing Parameter';
+    return res.redirect('/app/create');
+  }
+  new Promise.props({
+    app: models.App.create({
+      name: req.body.name
+    }),
+    user: models.User.findOne({
+      username: req.session.username
+    })
+  }).then(function(results) {
+    return results.app.addUser(results.user);
+  }).then(function() {
+    req.session.flash = 'Success!';
+    res.redirect('/app/list')
+  });
+});
+
 app.get('/database', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
     title: config.title + " - Database"
   });
 });
 
-app.get('/database/create', middleware.loggedIn, function(req, res){
+app.get('/database/create', middleware.loggedIn, function (req, res){
 	res.render('database_create', {
     title: config.title + " - Create New Database"
   });
 });
 
-app.post('/login', function(req, res) {
+app.post('/login', function (req, res) {
   if(!req.body.username || !req.body.password) {
     return res.end();
   }
