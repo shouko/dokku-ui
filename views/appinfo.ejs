@@ -1,3 +1,12 @@
 <% include header %>
 <% include appinfonav %>
+<% if(func=="Resource"){%>
+    <% include resource %>
+<% }else if(func=="Collaborator"){ %>
+    <% include collaborator %>
+<% }else if(func=="Settings"){ %>
+    <% include settings %>
+<% }else{ %>
+    <% include overview %>
+<% } %>
 <% include footer %>

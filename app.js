@@ -33,9 +33,9 @@ app.get('/createapp', function (req, res) {
   });
 });
 
-app.get('/creategroup', function (req, res) {
-    res.render('creategroup', {
-        title: config.title + " - Create New Group"
+app.get('/createteam', function (req, res) {
+    res.render('createteam', {
+        title: config.title + " - Create New Team"
     });
 });
 
@@ -46,8 +46,11 @@ app.get('/createdatabase', function(req, res){
 });
 
 app.get('/appinfo', function(req, res){
+    var names = ['Overview', 'Resource', 'Collaborator', 'Settings']
 	res.render('appinfo', {
-        title: config.title + " - App Information"
+        title: config.title + " - App Information",
+        funcs: names,
+        func: req.query.func
     });
 });
 

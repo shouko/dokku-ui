@@ -1,0 +1,70 @@
+<div style="margin-top: 50px;margin-left:20%; width:60%">
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Authentication</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>john@example.com</td>
+        <td>owner</td>
+      </tr>
+      <tr>
+        <td>Mary Moe</td>
+        <td>mary@example.com</td>
+        <td>collaborator</td>
+      </tr>
+      <tr>
+        <td>July Dooley</td>
+        <td>july@example.com</td>
+        <td>collaborator</td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 style="margin-top: 50px">Add New Collaborator</h4>
+  <form>
+    <div class="form-group row">
+      <label class="col-sm-2 form-control-label">Email Address</label>
+      <div class="col-sm-8" id="mutipleEmail">
+        <input type="email" class="form-control" id="inputTeamMember1">
+      </div>
+      <div class="col-sm-2">
+          <button type="button" class="btn btn-secondary" id="addMore" onclick="add_fields();">Add More</button>
+          <button type="button" class="btn btn-secondary" id="remove" onclick="remove_fields();">Remove</button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-offset-4 col-sm-8">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+var emailNumber = 1;
+$("#remove").hide();
+function add_fields() {
+var d = document.getElementById("mutipleEmail");
+emailNumber += 1;
+d.innerHTML += "<input type=\"email\" class=\"form-control\" id=\"inputTeamMember" + emailNumber + "\">";
+$("#remove").show();
+}
+
+function remove_fields() {
+var d = document.getElementById("mutipleEmail");
+if (emailNumber > 1){
+    emailNumber -= 1;
+    d.innerHTML = ""
+    for (var i = 1; i <= emailNumber; i++) {
+        d.innerHTML += "<input type=\"email\" class=\"form-control\" id=\"inputTeamMember" + i + "\">";
+    }
+    if(emailNumber == 1) {
+        $("#remove").hide();
+    }
+}
+}
+</script>
