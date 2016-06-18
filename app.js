@@ -19,39 +19,33 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/apps', function (req, res) {
-    res.render('apps', {
+app.get('/app/list', function (req, res) {
+    res.render('app_list', {
       title: config.title + " - App"
   });
 });
 
-app.get('/databases', function (req, res) {
-  res.render('databases', {
-      title: config.title + " - Database"
-  });
+app.get('/app/info/:name', function(req, res){
+	res.render('app_info', {
+        title: config.title + " - App Information"
+    });
 });
 
-app.get('/createapp', function (req, res) {
-  res.render('createapp', {
+app.get('/app/create', function (req, res) {
+  res.render('app_create', {
       title: config.title + " - Create New App"
   });
 });
 
-app.get('/creategroup', function (req, res) {
-    res.render('creategroup', {
-        title: config.title + " - Create New Group"
-    });
+app.get('/database', function (req, res) {
+  res.render('database_list', {
+      title: config.title + " - Database"
+  });
 });
 
-app.get('/createdatabase', function(req, res){
-	res.render('createdatabase', {
+app.get('/database/create', function(req, res){
+	res.render('database_create', {
         title: config.title + " - Create New Database"
-    });
-});
-
-app.get('/appinfo', function(req, res){
-	res.render('appinfo', {
-        title: config.title + " - App Information"
     });
 });
 
