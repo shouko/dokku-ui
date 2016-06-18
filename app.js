@@ -6,6 +6,7 @@ var Sequelize = require('sequelize');
 var cookieSession = require('cookie-session')
 var sequelize = new Sequelize(config.db_url);
 var models = require('./models')(Sequelize, sequelize);
+var middleware = require('./middleware');
 sequelize.sync();
 
 var app = express();
@@ -24,31 +25,31 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/app/list', loggedIn, function (req, res) {
+app.get('/app/list', middleware.loggedIn, function (req, res) {
   res.render('app_list', {
     title: config.title + " - App"
   });
 });
 
-app.get('/app/info/:name', loggedIn, function(req, res){
+app.get('/app/info/:name', middleware.loggedIn, function(req, res){
 	res.render('app_info', {
     title: config.title + " - App Information"
   });
 });
 
-app.get('/app/create', loggedIn, function (req, res) {
+app.get('/app/create', middleware.loggedIn, function (req, res) {
   res.render('app_create', {
     title: config.title + " - Create New App"
   });
 });
 
-app.get('/database', loggedIn, function (req, res) {
+app.get('/database', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
     title: config.title + " - Database"
   });
 });
 
-app.get('/database/create', loggedIn, function(req, res){
+app.get('/database/create', middleware.loggedIn, function(req, res){
 	res.render('database_create', {
     title: config.title + " - Create New Database"
   });
