@@ -2,6 +2,10 @@ var config = require('./config');
 var express = require('express');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser')
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(config.db_url);
+var Models = require('./models')(Sequelize, sequelize);
+sequelize.sync();
 
 var app = express();
 
