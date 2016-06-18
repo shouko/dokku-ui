@@ -1,5 +1,8 @@
 <% include header %>
 <% include topnav %>
-<% include nodb %>
-<% include db %>
+<% if(db.length == 0) {%>
+  <% include database_list_empty %>
+<% } else { %>
+  <% include database_list_inner %>
+<% } %>
 <% include footer %>
