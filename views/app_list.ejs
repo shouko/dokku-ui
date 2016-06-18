@@ -1,0 +1,8 @@
+<% include header %>
+<% include topnav %>
+<% if(apps.length == 0) {%>
+  <% include app_list_empty %>
+<% } else { %>
+  <% include app_list_inner %>
+<% } %>
+<% include footer %>
