@@ -23,6 +23,7 @@
     "express": "^4.13.4",
     "mysql": "^2.10.2",
     "sequelize": "^3.23.3",
-    "serve-static": "^1.10.3"
+    "serve-static": "^1.10.3",
+    "sqlite3": "^3.1.4"
   }
 }
