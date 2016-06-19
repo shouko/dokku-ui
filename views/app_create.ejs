@@ -1,7 +1,7 @@
 <% include header %>
 <% include topnav %>
 <div style="margin-top: 50px;margin-left:20%; width:60%">
-	<form>
+	<form method="post">
 	  <div class="form-group row">
 	    <label for="inputAppName" class="col-sm-2 form-control-label">App Name</label>
 	    <div class="col-sm-10">
@@ -9,44 +9,13 @@
 	    </div>
 	  </div>
 	  <div class="form-group row">
-	    <label class="col-sm-2 form-control-label">Collaborators' Email</label>
-	    <div class="col-sm-8" id="mutipleEmail">
-	      <input type="email" class="form-control" id="inputTeamMember1">
+	    <div class="col-sm-2">
+	      <button type="submit" class="btn btn-secondary">Create</button>
 	    </div>
-        <div class="col-sm-2">
-			<button type="button" class="btn btn-secondary" id="addMore" onclick="add_fields();">Add More</button>
-			<button type="button" class="btn btn-secondary" id="remove" onclick="remove_fields();">Remove</button>
-        </div>
-	  </div>
-	  <div class="form-group row">
-	    <div class="col-sm-offset-4 col-sm-8">
-	      <button type="submit" class="btn btn-secondary">Create App</button>
+		<div class="col-sm-2">
+	      <button type="reset" class="btn btn-secondary">Reset</button>
 	    </div>
 	  </div>
 	</form>
 </div>
-<script>
-var emailNumber = 1;
-$("#remove").hide();
-function add_fields() {
-var d = document.getElementById("mutipleEmail");
-emailNumber += 1;
-d.innerHTML += "<input type=\"email\" class=\"form-control\" id=\"inputTeamMember" + emailNumber + "\">";
-$("#remove").show();
-}
-
-function remove_fields() {
-var d = document.getElementById("mutipleEmail");
-if (emailNumber > 1){
-    emailNumber -= 1;
-    d.innerHTML = ""
-    for (var i = 1; i <= emailNumber; i++) {
-        d.innerHTML += "<input type=\"email\" class=\"form-control\" id=\"inputTeamMember" + i + "\">";
-    }
-    if(emailNumber == 1) {
-        $("#remove").hide();
-    }
-}
-}
-</script>
 <% include footer %>
