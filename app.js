@@ -26,17 +26,20 @@ app.get('/', function (req, res) {
 });
 
 app.get('/app/list', middleware.loggedIn, function (req, res) {
+  var user;
   models.User.findOne({
     username: req.session.username
-  }).then(function(user) {
-    if(!user) {
+}).then(function(u) {
+    if(!u) {
       throw 'Inexist User';
     }
+    user = u
     return user.getApps();
   }).then(function(apps) {
     res.render('app_list', {
       title: config.title + " - App",
-      apps: apps
+      apps: apps,
+      user: user
     });
   })
 });
@@ -76,7 +79,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
   });
 });
 
-app.get('/database', middleware.loggedIn, function (req, res) {
+app.get('/database/list', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
     title: config.title + " - Database"
   });
