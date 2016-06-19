@@ -8,6 +8,7 @@ var crypto = require('crypto');
 var sequelize = new Sequelize(config.db_url);
 var models = require('./models')(Sequelize, sequelize);
 var middleware = require('./middleware');
+var dokku = require('dokku');
 sequelize.sync();
 
 var app = express();
@@ -62,6 +63,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
     req.session.flash = 'Missing Parameter';
     return res.redirect('/app/create');
   }
+  var app, user, keys;
   new Promise.props({
     app: models.App.create({
       name: req.body.name
@@ -70,10 +72,24 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
       username: req.session.username
     })
   }).then(function(results) {
-    return results.app.addUser(results.user);
+    app = results.app;
+    user = results.user;
+    return new Promise.props([
+      user.getKeys(),
+      results.app.addUser(results.user)
+    ]);
+  }).then(function(results){
+    keys = results[0];
   }).then(function() {
+    dokku(['create', app.name], '');
+    if(keys.length) {
+      dokku(['deploy:allow', app.name], keys[0].value);
+    }
     req.session.flash = 'Success!';
     res.redirect('/app/list')
+  }).catch(function(e) {
+    req.session.flash = 'Duplicate App Name';
+    req.redirect('/app/create');
   });
 });
 
