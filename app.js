@@ -3,7 +3,8 @@ var express = require('express');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser')
 var Sequelize = require('sequelize');
-var cookieSession = require('cookie-session')
+var cookieSession = require('cookie-session');
+var crypto = require('crypto');
 var sequelize = new Sequelize(config.db_url);
 var models = require('./models')(Sequelize, sequelize);
 var middleware = require('./middleware');
@@ -106,6 +107,10 @@ app.post('/login', function (req, res) {
   }).then(function(user) {
     user.verifyPassword(req.body.password).then(function() {
       req.session.username = user.username;
+      req.session.user = {
+        email: user.email,
+        avatar: 'https://gravatar.com/avatar/' + crypto.createHash('md5').update(user.email).digest('hex')
+      };
       res.redirect('/app/list');
     });
   }).catch(function(err) {
