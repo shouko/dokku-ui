@@ -19,6 +19,7 @@ module.exports = function(Sequelize, sequelize) {
       verifyPassword: function(password) {
         return new Promise(function(resolve, reject) {
           bcrypt.compare(password, this.password, function(err, res) {
+              console.log(err,res);
             if(err) {
               return reject(err);
             }

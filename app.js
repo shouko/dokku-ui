@@ -106,6 +106,36 @@ app.post('/login', function (req, res) {
   });
 });
 
+app.get('/signup', function (req, res) {
+  res.render('signup', {
+    title: config.title + ' - Signup'
+  });
+});
+
+app.post('/signup', function (req, res) {
+  if(!req.body.username || !req.body.password) {
+    return res.end();
+  }
+  models.User.findOne({
+    username: req.body.username
+  }).then(function(user) {
+      if(user){
+          throw "Duplicate Username";
+      }
+      return models.User.create({
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email
+      });
+  }).then(function(){
+      req.session.flash = "Success Signup";
+      res.redirect('/');
+  }).error(function(err) {
+    req.session.flash = err;
+    res.redirect('/signup');
+  });
+});
+
 app.get('/hello/:name', function (req, res) {
   res.send('Hello ' + req.params.name + '!');
 });
