@@ -28,7 +28,12 @@ app.get('/', function (req, res) {
 app.get('/app/list', middleware.loggedIn, function (req, res) {
   models.User.findOne({
     username: req.session.username
-  }).getApps().then(function(apps) {
+  }).then(function(user) {
+    if(!user) {
+      throw 'Inexist User';
+    }
+    return user.getApps();
+  }).then(function(apps) {
     res.render('app_list', {
       title: config.title + " - App",
       apps: apps
@@ -100,7 +105,7 @@ app.post('/login', function (req, res) {
       req.session.username = user.username;
       res.redirect('/app/list');
     });
-  }).error(function(err) {
+  }).catch(function(err) {
     req.session.flash = 'Wrong Password';
     res.redirect('/login');
   });
@@ -130,7 +135,7 @@ app.post('/signup', function (req, res) {
   }).then(function(){
       req.session.flash = "Success Signup";
       res.redirect('/');
-  }).error(function(err) {
+  }).catch(function(err) {
     req.session.flash = err;
     res.redirect('/signup');
   });

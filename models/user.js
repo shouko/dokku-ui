@@ -17,8 +17,9 @@ module.exports = function(Sequelize, sequelize) {
     },
     instanceMethods: {
       verifyPassword: function(password) {
+        var self = this;
         return new Promise(function(resolve, reject) {
-          bcrypt.compare(password, this.password, function(err, res) {
+          bcrypt.compare(password, self.password, function(err, res) {
               console.log(err,res);
             if(err) {
               return reject(err);
