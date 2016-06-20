@@ -1,4 +1,4 @@
-<div class="navbar navbar-warning" style="margin-top:-20px; background:pink">
+<div class="navbar navbar-warning" style="margin-top:-20px; background:pink;">
     <div class="container-fluid">
         <% if (title=="Dokku UI - App") {%>
         <ul class="nav navbar-nav" style="width:15%">
@@ -13,6 +13,10 @@
                 </ul>
             </li>
         </ul>
+        <% } else if (title=="Dokku UI") { %>
+        <ul class="nav navbar-nav" style="font-size: 17px; line-height: 50px;">
+            <li>Welcome to Dokku UI</li>
+        </ul>
         <% } %>
         <ul class="nav navbar-nav navbar-right">
             <% if (title=="Dokku UI - App") {%>
@@ -23,6 +27,10 @@
             <li><a href="/app/list" >Cancel</a></li>
             <% } else if (title=="Dokku UI - Create New Database") {%>
             <li><a href="/database/list">Cancel</a></li>
+            <% } else if (title=="Dokku UI - Signup") {%>
+            <li><a href="/">Cancel</a></li>
+            <% } else if (title=="Dokku UI - Login") {%>
+            <li><a href="/">Cancel</a></li>
             <% }%>
         </ul>
     </div>
