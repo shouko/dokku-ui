@@ -47,19 +47,47 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
   })
 });
 
-app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res){
+app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
   var names = ['Overview', 'Resource', 'Collaborator', 'Settings'];
+  var app;
   models.App.findOne({
-      name: req.params.name
-  }).then(function(app) {
-      res.render('app_info', {
-        title: config.title + " - App Information",
-        app: app,
-        funcs: names,
-        func: req.params.func,
-        user: req.session.user
+      $and: [
+        {
+          name: req.params.name
+        },{
+          name : {
+            $in: [sequelize.literal('SELECT appName FROM app_users WHERE userUsername =\'' + req.session.username + '\''))]
+          }
+        }
+      ]
+  }).then(function(a) {
+      app = a;
+      return Promise.props({
+        owner: a.getUser({ where: { type: 'owner' }}),
+        collaborator: a.getUser({ where: { $not: { type: 'owner' }}})
       });
+  }).then(function(collaborators) {
+    res.render('app_info', {
+      title: config.title + " - App Information",
+      app: app,
+      funcs: names,
+      func: req.params.func,
+      user: req.session.user,
+      collaborators: collaborators
+    });
   });
+});
+
+app.post('/app/info/:name/Resource', middleware.loggedIn, function (req, res) {
+
+});
+
+app.post('/app/info/:name/Collaborator', middleware.loggedIn, function (req, res) {
+
+});
+
+app.post('/app/info/:name/Settings', middleware.loggedIn, function (req, res) {
+
 });
 
 app.get('/app/create', middleware.loggedIn, function (req, res) {
