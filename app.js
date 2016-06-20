@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var sequelize = new Sequelize(config.db_url);
 var models = require('./models')(Sequelize, sequelize);
 var middleware = require('./middleware');
-var dokku = require('dokku');
+var dokku = require('./dokku');
 sequelize.sync();
 
 var app = express();
