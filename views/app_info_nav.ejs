@@ -1,25 +1,17 @@
 <div style="margin-top:-20px;">
     <ol class="breadcrumb" style="background:pink">
-      <li style="width:10%"><a href="/apps" style="text-decoration:none; color:white"><img src="/images/user.png" style="width:15%"> &nbsp Personal apps</a></li>
+      <li style="width:10%"><a href="/app/list" style="text-decoration:none; color:white"><img src="/images/user.png" style="width:15%"> &nbsp Personal apps</a></li>
       <li class="active" style="color:white">IM_Night</li>
     </ol>
 </div>
 <div style="margin-top:-20px">
     <ul class="nav nav-pills" style="background:#E0E0E0;">
         <% for(var i = 0;i < funcs.length;i++){
-            if(funcs[i]==func){%>
-            <li role="presentation" class="active"><a href="/appinfo/?func=<%= funcs[i] %>"><%= funcs[i] %></a></li>
-            <% } else{%>
-            <li role="presentation"><a href="/appinfo/?func=<%= funcs[i] %>"><%= funcs[i] %></a></li>
+            if(funcs[i]==func){ %>
+            <li role="presentation" class="active"><a href="/app/info/<%= app %>/<%= funcs[i] %>"><%= funcs[i] %></a></li>
+            <% } else{ %>
+            <li role="presentation"><a href="/app/info/<%= app %>/<%= funcs[i] %>"><%= funcs[i] %></a></li>
             <% } %>
         <% }%>
-    <!-- <li role="presentation" class="active"><a href="/appinfo/?func=overview">Overview</a></li>
-    <li role="presentation"><a href="/appinfo/?func=resource">Resource</a></li>
-    <li role="presentation"><a href="/appinfo/?func=collaborators">Collaborators</a></li>
-    <li role="presentation"><a href="/appinfo/?func=settings">Settings</a></li> -->
   </ul>
 </div>
-
-
-
-<!-- <img src="images/user.png" style="width:10%;"> -->

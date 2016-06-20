@@ -1,9 +1,10 @@
 var config = require('./config');
 var express = require('express');
 var serveStatic = require('serve-static');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
 var cookieSession = require('cookie-session');
+var Promise = require('bluebird');
 var crypto = require('crypto');
 var sequelize = new Sequelize(config.db_url);
 var models = require('./models')(Sequelize, sequelize);
@@ -45,12 +46,13 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
   })
 });
 
-app.get('/app/info/:name', middleware.loggedIn, function (req, res){
+app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res){
   var names = ['Overview', 'Resource', 'Collaborator', 'Settings'];
   res.render('app_info', {
     title: config.title + " - App Information",
+    app: req.params.name,
     funcs: names,
-    func: req.query.func
+    func: req.params.func
   });
 });
 
@@ -65,7 +67,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
     req.session.flash = 'Missing Parameter';
     return res.redirect('/app/create');
   }
-  new Promise.props({
+  Promise.props({
     app: models.App.create({
       name: req.body.name
     }),

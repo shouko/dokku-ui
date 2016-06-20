@@ -1,12 +1,12 @@
 <% include header %>
 <% include app_info_nav %>
 <% if(func=="Resource"){%>
-    <% include resource %>
+    <% include app_info_resource %>
 <% }else if(func=="Collaborator"){ %>
-    <% include collaborator %>
+    <% include app_info_collaborator %>
 <% }else if(func=="Settings"){ %>
-    <% include settings %>
+    <% include app_info_settings %>
 <% }else{ %>
-    <% include overview %>
+    <% include app_info_overview %>
 <% } %>
 <% include footer %>
