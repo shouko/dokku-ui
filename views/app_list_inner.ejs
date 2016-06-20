@@ -1,26 +1,13 @@
-<div>
+<div style="margin-top: 50px;margin-left:20%; width:60%">
   <table class="table table-hover" data-link="row">
     <tbody>
-      <tr>
-        <td>  </td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="images/app.png" style="width:2%"> IM_Night</a></td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none">2016.4.27</a></td>
-      </tr>
-      <tr>
-        <td>  </td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="images/app.png" style="width:2%"> IM_Night</a></td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none">2016.4.27</a></td>
-      </tr>
-      <tr>
-        <td>  </td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="images/database.png" style="width:2%"> IM_database</a></td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none">2016.4.20</a></td>
-      </tr>
-      <tr>
-       <td>  </td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="images/database.png" style="width:2%"> IM_database</a></td>
-        <td><a href="/appinfo/?func=Overview" style="display:block; width: 100%; height: 100%; text-decoration:none">2016.4.20</a></td>
-      </tr>
+        <% for(var i=0; i < apps.length; i++){ %>
+        <tr>
+          <td>  </td>
+          <td><a href="/app/info/<%= apps[i].name %>/Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="/images/app.png" style="width:8%"> <%= apps[i].name %></a></td>
+          <td><a href="/app/info/<%= apps[i].name %>/Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><%= apps[i].createdAt %></a></td>
+        </tr>
+        <% } %>
     </tbody>
   </table>
 </div>
