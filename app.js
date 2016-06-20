@@ -93,8 +93,8 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
     req.session.flash = 'Success!';
     res.redirect('/app/list')
   }).catch(function(e) {
-    req.session.flash = 'Duplicate App Name';
-    req.redirect('/app/create');
+    req.session.flash = 'Error when Creating App';
+    res.redirect('/app/create');
   });
 });
 
