@@ -52,18 +52,31 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
   var app;
   models.User.findOne({
     name: req.session.user.username
-  }).then(funciton(user) {
+}).then(function(user) {
     return user.getApps({ name: req.params.name });
   }).then(function(a) {
-      app = a;
-      return a.getUsers();
+      if (a){
+          app = a[0];
+          return app.getUsers();
+      }
+      throw "App Not found";
   }).then(function(collaborators) {
+    console.log(collaborators);
+    var own;
+    for (var i = 0; i < collaborators.length; i++) {
+        if (collaborators[i].app_user.type == "owner"){
+            own = collaborators[i];
+            collaborators.splice(i, 1);
+            break;
+        }
+    }
     res.render('app_info', {
       title: config.title + " - App Information",
       app: app,
       funcs: names,
       func: req.params.func,
       user: req.session.user,
+      owner: own,
       collaborators: collaborators
     });
   });
@@ -129,32 +142,32 @@ app.get('/database/list', middleware.loggedIn, function (req, res) {
     user: req.session.user,
     db: [
       {
-        id: 0,
         name: 'db_1',
-        type: 'mongodb'
+        type: 'mongodb',
+        createdAt : '2015/12/01'
       },{
-        id: 1,
         name: 'db_2',
-        type: 'mariadb'
+        type: 'mariadb',
+        createdAt : '2015/12/01'
       },{
-        id: 2,
         name: 'db_3',
-        type: 'redis'
+        type: 'redis',
+        createdAt : '2015/12/01'
       },{
-        id: 3,
         name: 'db_4',
-        type: 'mariadb'
+        type: 'mariadb',
+        createdAt : '2015/12/01'
       }
     ]
   });
 });
 
-app.get('/database/create', middleware.loggedIn, function (req, res){
-	res.render('database_create', {
-    title: config.title + " - Create New Database",
-    user: req.session.user
-  });
-});
+// app.get('/database/create', middleware.loggedIn, function (req, res){
+// 	res.render('database_create', {
+//     title: config.title + " - Create New Database",
+//     user: req.session.user
+//   });
+// });
 
 app.get('/login', function (req, res) {
   res.render('login', {

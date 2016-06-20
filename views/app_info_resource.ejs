@@ -1,0 +1,45 @@
+<div style="margin-top: 50px;margin-left:20%; width:60%">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Database Name</th>
+            <th>Created Date</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+              <td>  </td>
+              <td><a href="/app/info/<%= apps[i].name %>/Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><img src="/images/app.png" style="width:8%"> <%= apps[i].name %></a></td>
+              <td><a href="/app/info/<%= apps[i].name %>/Overview" style="display:block; width: 100%; height: 100%; text-decoration:none"><%= apps[i].createdAt %></a></td>
+            </tr> -->
+        </tbody>
+    </table>
+  <h4 style="margin-top: 50px">Add New Database</h4>
+  <form method="post">
+    <div class="form-group row">
+      <label for="inputAppName" class="col-sm-4 form-control-label">Database Name</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="inputAppName" placeholder="Database Name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="selectdb" class="col-sm-4 form-control-label">Database Selection</label>
+    <div class="col-xs-8">
+      <select class="selectpicker form-control">
+        <option value="maria">MariaDB</option>
+        <option value = "postgre">PostgreSQL</option>
+        <option value = "mongo">MongoDB</option>
+      </select>
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-secondary">Create</button>
+      </div>
+      <div class="col-sm-2">
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>

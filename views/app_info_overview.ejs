@@ -1,20 +1,18 @@
 <div style="margin-top: 50px;margin-left:20%; width:60%">
-    <div class="row">
-      <label class="col-sm-3"  style="color: black;">App Name</label>
-      <div class="col-sm-9">
-        <%= app.name %>
-      </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-3"  style="color: black;">Created Date</label>
-      <div class="col-sm-9">
-        <%= app.createdAt %>
-      </div>
-    </div>
-    <div class="row">
-      <label class="col-sm-3"  style="color: black;">Latest Updated</label>
-      <div class="col-sm-9">
-        <%= app.updatedAt %>
-      </div>
-    </div>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>App Name</strong></td>
+                <td><%= app.name %></td>
+            </tr>
+            <tr>
+                <td><strong>Created Date</strong></td>
+                <td><%= app.createdAt %></td>
+            </tr>
+            <tr>
+                <td><strong>Latest Updated</strong></td>
+                <td><%= app.updatedAt %></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
