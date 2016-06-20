@@ -49,17 +49,23 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
 
 app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res){
   var names = ['Overview', 'Resource', 'Collaborator', 'Settings'];
-  res.render('app_info', {
-    title: config.title + " - App Information",
-    app: req.params.name,
-    funcs: names,
-    func: req.params.func
+  models.App.findOne({
+      name: req.params.name
+  }).then(function(app) {
+      res.render('app_info', {
+        title: config.title + " - App Information",
+        app: app,
+        funcs: names,
+        func: req.params.func,
+        user: req.session.user
+      });
   });
 });
 
 app.get('/app/create', middleware.loggedIn, function (req, res) {
   res.render('app_create', {
-    title: config.title + " - Create New App"
+    title: config.title + " - Create New App",
+    user: req.session.user
   });
 });
 
@@ -100,13 +106,15 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
 
 app.get('/database/list', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
-    title: config.title + " - Database"
+    title: config.title + " - Database",
+    user: req.session.user
   });
 });
 
 app.get('/database/create', middleware.loggedIn, function (req, res){
 	res.render('database_create', {
-    title: config.title + " - Create New Database"
+    title: config.title + " - Create New Database",
+    user: req.session.user
   });
 });
 
