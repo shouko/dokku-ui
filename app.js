@@ -30,6 +30,7 @@ app.get('/', function (req, res) {
 
 app.get('/app/list', middleware.loggedIn, function (req, res) {
   var user;
+  console.log(req.session.flash);
   models.User.findOne({
     username: req.session.user.username
 }).then(function(u) {
@@ -57,16 +58,18 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
   }).then(function(a) {
       if (a){
           app = a[0];
-          return app.getUsers();
+          return Promise.props({
+              collaborators: app.getUsers(),
+              db: app.getDatabases()
+          })
       }
       throw "App Not found";
-  }).then(function(collaborators) {
-    console.log(collaborators);
+  }).then(function(result) {
     var own;
-    for (var i = 0; i < collaborators.length; i++) {
-        if (collaborators[i].app_user.type == "owner"){
-            own = collaborators[i];
-            collaborators.splice(i, 1);
+    for (var i = 0; i < result.collaborators.length; i++) {
+        if (result.collaborators[i].app_user.type == "owner"){
+            own = result.collaborators[i];
+            result.collaborators.splice(i, 1);
             break;
         }
     }
@@ -77,7 +80,8 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
       func: req.params.func,
       user: req.session.user,
       owner: own,
-      collaborators: collaborators
+      collaborators: result.collaborators,
+      db: result.db
     });
   }).catch(function(e) {
     req.session.flash = 'Error Creating App';
@@ -107,11 +111,11 @@ app.post('/app/info/:name/Resource', middleware.loggedIn, function (req, res) {
   }).then(function(database) {
     return database.addApp(app);
   }).then(function() {
-    dokku([req.body.type + ':create', req.params.name], '');
-    dokku([req.body.type + ':link', app.name, req.params.name], '');
+    dokku([req.body.type + ':create', req.body.name], '');
+    dokku([req.body.type + ':link', app.name, req.body.name], '');
   }).then(function() {
     req.session.flash = 'Success!';
-    res.redirect('/app/' + req.params.name + '/Resource');
+    res.redirect('/app/info/' + req.params.name + '/Resource');
   }).catch(function(e) {
     req.session.flash = e;
     res.redirect('/app/list');
