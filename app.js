@@ -73,7 +73,7 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
 });
 
 app.post('/app/info/:name/Resource', middleware.loggedIn, function (req, res) {
-  if(!req.body.name || !req.body.type) {
+  if(!req.body.type) {
     req.session.flash = 'Missing Parameter';
     return res.redirect('/app/list');
   }
@@ -106,7 +106,35 @@ app.post('/app/info/:name/Resource', middleware.loggedIn, function (req, res) {
 });
 
 app.post('/app/info/:name/Collaborator', middleware.loggedIn, function (req, res) {
-
+  if(!req.body.name) {
+    req.session.flash = 'Missing Parameter';
+    return res.redirect('/app/list');
+  }
+  var app;
+  models.User.findOne({
+    name: req.session.user.username
+  }).then(function(user) {
+    return user.getApps({ name: req.params.name });
+  }).then(function(apps) {
+    if(!apps) {
+      throw 'Error Adding Collaborators';
+    }
+    app = apps[0];
+    return models.User.findOne({
+      username: req.body.name
+    });
+  }).then(function(user) {
+    return user.addApp(app, { type: 'collaborator' });
+  }).then(function() {
+    dokku([req.body.type + ':create', req.params.name], '');
+    dokku([req.body.type + ':link', app.name, req.params.name], '');
+  }).then(function() {
+    req.session.flash = 'Success!';
+    res.redirect('/app/' + req.params.name + '/Collaborator');
+  }).catch(function(e) {
+    req.session.flash = e;
+    res.redirect('/app/list');
+  });
 });
 
 app.post('/app/info/:name/Settings', middleware.loggedIn, function (req, res) {
