@@ -28,17 +28,20 @@ app.get('/', function (req, res) {
 });
 
 app.get('/app/list', middleware.loggedIn, function (req, res) {
+  var user;
   models.User.findOne({
-    username: req.session.username
-  }).then(function(user) {
-    if(!user) {
+    username: req.session.user.username
+}).then(function(u) {
+    if(!u) {
       throw 'Inexist User';
     }
+    user = u
     return user.getApps();
   }).then(function(apps) {
     res.render('app_list', {
       title: config.title + " - App",
-      apps: apps
+      apps: apps,
+      user: user
     });
   })
 });
@@ -69,7 +72,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
       name: req.body.name
     }),
     user: models.User.findOne({
-      username: req.session.username
+      username: req.session.user.username
     })
   }).then(function(results) {
     app = results.app;
@@ -93,7 +96,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
   });
 });
 
-app.get('/database', middleware.loggedIn, function (req, res) {
+app.get('/database/list', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
     title: config.title + " - Database"
   });
@@ -119,8 +122,8 @@ app.post('/login', function (req, res) {
     username: req.body.username
   }).then(function(user) {
     user.verifyPassword(req.body.password).then(function() {
-      req.session.username = user.username;
       req.session.user = {
+        username: user.username,
         email: user.email,
         avatar: 'https://gravatar.com/avatar/' + crypto.createHash('md5').update(user.email).digest('hex')
       };
