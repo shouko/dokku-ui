@@ -1,6 +1,6 @@
 <div class="navbar navbar-warning" style="margin-top:-20px; background:pink;">
     <div class="container-fluid">
-        <% if (title=="Dokku UI - App") {%>
+        <% if (subtitle==" - App") {%>
         <ul class="nav navbar-nav" style="width:15%">
             <li class="dropdown">
                 <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/images/user.png" style="max-height: 20px;"/>  Personal apps  <span class = "glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -13,21 +13,21 @@
                 </ul>
             </li>
         </ul>
-        <% } else if (title=="Dokku UI") { %>
+        <% } else if (subtitle=="") { %>
         <ul class="nav navbar-nav" style="font-size: 17px; line-height: 50px;">
-            <li>Welcome to Dokku UI</li>
+            <li>Welcome to <%= title %></li>
         </ul>
         <% } %>
         <ul class="nav navbar-nav navbar-right">
-            <% if (title=="Dokku UI - App") {%>
+            <% if (subtitle==" - App") {%>
             <li><a href="/app/create">Create New App</a></li>
-            <% } else if (title=="Dokku UI - Create New App") {%>
+            <% } else if (subtitle==" - Create New App") {%>
             <li><a href="/app/list" >Cancel</a></li>
-            <% } else if (title=="Dokku UI - Create New Database") {%>
+            <% } else if (subtitle==" - Create New Database") {%>
             <li><a href="/database/list">Cancel</a></li>
-            <% } else if (title=="Dokku UI - Signup") {%>
+            <% } else if (subtitle==" - Signup") {%>
             <li><a href="/">Cancel</a></li>
-            <% } else if (title=="Dokku UI - Login") {%>
+            <% } else if (subtitle==" - Login") {%>
             <li><a href="/">Cancel</a></li>
             <% }%>
         </ul>

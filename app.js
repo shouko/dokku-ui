@@ -24,7 +24,8 @@ app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
   res.render('index', {
-    title: config.title
+    title: config.title,
+    subtitle: ''
   });
 });
 
@@ -41,7 +42,8 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
     return user.getApps();
   }).then(function(apps) {
     res.render('app_list', {
-      title: config.title + " - App",
+      title: config.title,
+      subtitle: " - App",
       apps: apps,
       user: req.session.user
     });
@@ -74,7 +76,8 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
         }
     }
     res.render('app_info', {
-      title: config.title + " - App Information",
+      title: config.title,
+      subtitle: " - App Information",
       app: app,
       funcs: names,
       func: req.params.func,
@@ -160,7 +163,8 @@ app.post('/app/info/:name/Settings', middleware.loggedIn, function (req, res) {
 
 app.get('/app/create', middleware.loggedIn, function (req, res) {
   res.render('app_create', {
-    title: config.title + " - Create New App",
+    title: config.title,
+    subtitle: " - Create New App",
     user: req.session.user
   });
 });
@@ -202,7 +206,8 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
 
 app.get('/database/list', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
-    title: config.title + " - Database",
+    title: config.title,
+    subtitle: " - Database",
     user: req.session.user,
     db: [
       {
@@ -235,7 +240,8 @@ app.get('/database/list', middleware.loggedIn, function (req, res) {
 
 app.get('/login', function (req, res) {
   res.render('login', {
-    title: config.title + ' - Login'
+    title: config.title,
+    subtitle: ' - Login'
   });
 });
 
@@ -262,7 +268,8 @@ app.post('/login', function (req, res) {
 
 app.get('/signup', function (req, res) {
   res.render('signup', {
-    title: config.title + ' - Signup'
+    title: config.title,
+    subtitle: ' - Signup'
   });
 });
 
