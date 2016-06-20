@@ -100,7 +100,26 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
 
 app.get('/database/list', middleware.loggedIn, function (req, res) {
   res.render('database_list', {
-    title: config.title + " - Database"
+    title: config.title + " - Database",
+    db: [
+      {
+        id: 0,
+        name: 'db_1',
+        type: 'mongodb'
+      },{
+        id: 1,
+        name: 'db_2',
+        type: 'mariadb'
+      },{
+        id: 2,
+        name: 'db_3',
+        type: 'redis'
+      },{
+        id: 3,
+        name: 'db_4',
+        type: 'mariadb'
+      }
+    ]
   });
 });
 
