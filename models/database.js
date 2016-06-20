@@ -11,7 +11,7 @@ module.exports = function(Sequelize, sequelize) {
     },
     type: {
       type: Sequelize.ENUM,
-      values: ['mariadb', 'mongodb', 'postgres'],
+      values: ['mariadb', 'mongodb', 'postgresql', 'redis'],
       unique: 'comp1'
     }
   });
