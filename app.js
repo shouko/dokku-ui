@@ -81,7 +81,7 @@ app.post('/app/create', middleware.loggedIn, function (req, res) {
     user = results.user;
     return new Promise.props([
       user.getKeys(),
-      results.app.addUser(results.user)
+      results.app.addUser(results.user, { type: 'owner' })
     ]);
   }).then(function(results){
     keys = results[0];
