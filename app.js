@@ -41,7 +41,7 @@ app.get('/app/list', middleware.loggedIn, function (req, res) {
     res.render('app_list', {
       title: config.title + " - App",
       apps: apps,
-      user: user
+      user: req.session.user
     });
   })
 });

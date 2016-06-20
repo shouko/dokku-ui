@@ -33,11 +33,11 @@
         <li class="dropdown">
             <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
                 <div>
-                    <img src="/images/bonnie.png" style="max-height:25px; border-radius:30px">
+                    <img src="<%= user.avatar %>" style="max-height:25px; border-radius:30px">
                 </div>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="javascript:void(0)" style="text-align:center"><img src="/images/bonnie.png" style="max-width:40px; border-radius:40px"><br><%= locals.user.username %><br><%= locals.user.email %></a></li>
+                <li><a href="javascript:void(0)" style="text-align:center"><img src="<%= user.avatar %>" style="max-width:40px; border-radius:40px"><br><%= locals.user.username %><br><%= locals.user.email %></a></li>
                 <li><a href="javascript:void(0)"><img src="/images/setting.png" style="width:10%">  Account settings</a></li>
                 <li><a href="javascript:void(0)"><img src="/images/notifaction.png" style="width:10%">  Notifications</a></li>
                 <li><a href="/"><img src="/images/signout.png" style="width:10%">  Sign out</a></li>
