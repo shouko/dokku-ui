@@ -1,4 +1,5 @@
 <% include header %>
+<% include topnav %>
 <div style="margin-top: 50px;margin-left:20%; width:60%">
     <h4 style="margin-top: 50px">Login</h4>
     <form method="post">
@@ -14,10 +15,13 @@
 	      <input type="password" class="form-control" id="inputPassword" name="password">
 	    </div>
 	  </div>
-	  <div class="form-group row">
-	    <div class="col-sm-offset-4 col-sm-8">
-	      <button type="submit" class="btn btn-secondary">Login</button>
-	    </div>
+      <div class="form-group row">
+        <div class="col-sm-2">
+  	      <button type="submit" class="btn btn-secondary">Login</button>
+  	    </div>
+  		<div class="col-sm-2">
+  	      <button type="reset" class="btn btn-secondary">Reset</button>
+  	    </div>
 	  </div>
 	</form>
 </div>
