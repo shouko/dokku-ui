@@ -52,7 +52,7 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
   var app;
   models.User.findOne({
     name: req.session.user.username
-  }).then(funciton(user) {
+  }).then(function(user) {
     return user.getApps({ name: req.params.name });
   }).then(function(a) {
       app = a;
@@ -66,11 +66,43 @@ app.get('/app/info/:name/:func', middleware.loggedIn, function (req, res) {
       user: req.session.user,
       collaborators: collaborators
     });
+  }).catch(function(e) {
+    req.session.flash = 'Error Creating App';
+    res.redirect('/app/create');
   });
 });
 
 app.post('/app/info/:name/Resource', middleware.loggedIn, function (req, res) {
-
+  if(!req.body.name || !req.body.type) {
+    req.session.flash = 'Missing Parameter';
+    return res.redirect('/app/list');
+  }
+  var app;
+  models.User.findOne({
+    name: req.session.user.username
+  }).then(function(user) {
+    return user.getApps({ name: req.params.name });
+  }).then(function(apps) {
+    if(!apps) {
+      throw 'Error Creating Database';
+    }
+    app = apps[0];
+    return models.Database.create({
+      name: req.body.name,
+      type: req.body.type
+    });
+  }).then(function(database) {
+    return database.addApp(app);
+  }).then(function() {
+    dokku([req.body.type + ':create', req.params.name], '');
+    dokku([req.body.type + ':link', app.name, req.params.name], '');
+  }).then(function() {
+    req.session.flash = 'Success!';
+    res.redirect('/app/' + req.params.name + '/Resource');
+  }).catch(function(e) {
+    req.session.flash = e;
+    res.redirect('/app/list');
+  });
 });
 
 app.post('/app/info/:name/Collaborator', middleware.loggedIn, function (req, res) {
